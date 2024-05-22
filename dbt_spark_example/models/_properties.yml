@@ -1,0 +1,7 @@
+unit_tests:
+  - name: test_hello_world
+    model: hello_world
+    given: []
+    expect:
+      rows:
+        - {hello: world}
