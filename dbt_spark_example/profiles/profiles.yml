@@ -1,0 +1,10 @@
+dbt_spark_example:
+  target: dev
+  outputs:
+    dev:
+      type: spark
+      method: thrift
+      host: hudi
+      port: 10000
+      schema: hudi_dbt
+      threads: 1

@@ -1,0 +1,33 @@
+version: "3.9"
+
+services:
+  hudi:
+    build: ./.docker/hudi
+    command: /usr/local/bin/run.sh
+    environment:
+      # SPARK_HOME is not just used in the dockerfile, it's for Spark itself,
+      # and it needs to be set to where Spark is set up in the base image
+      SPARK_HOME: /opt/spark
+      # SPARK_MASTER_NAME is the domain that Spark is running on, which should
+      # match the docker compose service name
+      SPARK_MASTER_NAME: spark-hudi
+      SPARK_APPLICATIONS_HOME: /opt/spark-apps
+      SPARK_MASTER_PORT: 7077
+      SPARK_MASTER_LOG: /spark/logs
+      DERBY_VERSION: 10.14.2.0
+      DERBY_HOME: /opt/db-derby-10.14.2.0-bin
+      SPARK_VERSION: 3.4.0
+    ports:
+      - "10001:10000"
+    volumes:
+      - ./.docker/hudi/data:/usr/local/data
+      - ./.docker/hudi/run.sh:/usr/local/bin/run.sh
+
+  dbt:
+    build:
+      context: ./dbt_spark_example/
+      dockerfile: ../.docker/dbt/Dockerfile
+    environment:
+      DBT_PROFILES_DIR: /usr/src/app/profiles
+    volumes:
+      - ./dbt_spark_example/:/usr/src/app

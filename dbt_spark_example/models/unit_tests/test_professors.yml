@@ -1,0 +1,11 @@
+unit_tests:
+  - name: test_professors
+    model: professors
+    description: Tests that professors returns the expected values
+    given:
+      - input: ref('characters')
+        rows:
+          - { id: 1, name prof. kevin }
+    expect:
+      rows:
+        - { id: 1, name: prof. kevin }

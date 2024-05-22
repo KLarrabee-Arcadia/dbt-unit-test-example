@@ -1,0 +1,8 @@
+unit_tests:
+  - name: test_characters
+    model: characters
+    description: Tests that characters returns the expected values
+    given: []
+    expect:
+      rows:
+        - { id: 1, name: kevin }
