@@ -1,6 +1,14 @@
 dbt_spark_example:
   target: spark-hudi
   outputs:
+    postgres:
+      type: postgres
+      host: postgres
+      database: dbt
+      port: 5432
+      user: dbt_role
+      password: dbt_password
+      schema: public
     spark-hudi:
       type: spark
       method: thrift
